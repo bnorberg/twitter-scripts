@@ -1,0 +1,30 @@
+Scraping historical twitter data
+
+# System Setup
+
+  Download Twitterscraper, https://github.com/taspinar/twitterscraper
+  Download Twarc, https://github.com/DocNow/twarc
+  Install necessary Python dependences for above libraries
+  Configure Twarc
+    create a Twitter apps at https://apps.twitter.com/
+    run ‘twarc configure’ using the api keys and secret from your newley create app
+
+
+#Scrape data from Twitter UI
+
+  twitterscraper ‘search_terms’ -bd 2018-03-01 -ed 2018-05-31 -o grm.json
+
+
+#Retrieve ids from scraped tweets
+
+  ruby get_twitter_ids.rb gua.json gua_ids.txt
+
+
+#Re-hydrate tweets with Twarc
+
+  twarc hydrate gua_ids.txt > gua.jsonl
+
+
+#Prep data for Tableau analysis and download media
+
+  ruby twarc2tableau.rb gua.jsonl gua.csv /Users/brn5/stein_project/GUA
